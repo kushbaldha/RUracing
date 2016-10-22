@@ -10,7 +10,7 @@ public class Player
 	int y;
 	int id;
 	double speedScalar;
-	int step = display something/ number;
+	int step = 10;
 	int life = 3;
 	Rectangle hitbox;
 	BufferedImage image;
@@ -51,7 +51,7 @@ public class Player
 	{
 		setY(this.y - (int)speedScalar*step);
 	}
-	public double setSpeed(double speed)
+	public void setSpeed(double speed)
 	{
 		this.speedScalar = speed;
 	}
