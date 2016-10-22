@@ -94,6 +94,7 @@ public class MainThread
 	   {
 		  gamePanel.setInterpolation(interpolation);
 	      gamePanel.repaint();
+	      //testing
 	   }
 	   
 	   private class GamePanel extends JPanel
