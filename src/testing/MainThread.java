@@ -90,8 +90,9 @@ public class MainThread
 	      gamePanel.update();
 	   }
 	   
-	   private void drawGame()
+	   private void drawGame(float interpolation)
 	   {
+		  gamePanel.setInterpolation(interpolation);
 	      gamePanel.repaint();
 	   }
 	   
