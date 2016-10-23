@@ -249,7 +249,7 @@ public class GamePanel extends JPanel implements KeyListener
 	@Override
 	public void keyReleased(KeyEvent arg0) 
 	{
-		int key = e.getKeyCode();
+		int key = arg0.getKeyCode();
 		System.out.println("printing");
 		if (key == KeyEvent.VK_LEFT) {
 	        keyPressedLeft = false;
@@ -287,9 +287,10 @@ public class GamePanel extends JPanel implements KeyListener
 	    }
 		
 	}
+	
 		
 	
-	}
-	
-	
 }
+	
+	
+
