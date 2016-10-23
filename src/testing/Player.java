@@ -27,10 +27,12 @@ public class Player
 	public void setX(int x)
 	{
 		this.x = x;
+		hitbox.setLocation(x, y);
 	}
 	public void setY(int y)
 	{
 		this.y = y;
+		hitbox.setLocation(x, y);
 	}
 	
 	public void moveLeft()
@@ -64,6 +66,7 @@ public class Player
 	public void setImage(BufferedImage image)
 	{
 		this.image = image;
+		hitbox = new Rectangle(x,y,image.getWidth(),image.getHeight());
 	}
 	public int getY()
 	{
