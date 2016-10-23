@@ -13,14 +13,8 @@ public class Terrain
 		y = (int) (Math.random()*-100);
 	}
 	
-	ArrayList<Terrain> boulders = new ArrayList<Terrain>();
-	{
-	for (int i=0;i<=2;i++)
-	{
-		boulders.add(new Terrain());
-	}
+	
 
-}
 }
 
 

@@ -27,6 +27,7 @@ public class GameLoopTest extends JFrame implements ActionListener
       cp.setLayout(new BorderLayout());
       setSize(500, 1000);
       cp.add(gamePanel, BorderLayout.CENTER);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
       runGameLoop();
    }
    
@@ -142,7 +143,7 @@ public class GameLoopTest extends JFrame implements ActionListener
   	   private void drawGame()
   	   {
   	      gamePanel.repaint();
-  	      //frameCount++;
-  	      //testing
+  	      frameCount++;
+  	      
   	   }
    }

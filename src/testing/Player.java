@@ -1,7 +1,10 @@
 package testing;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
 
 
 public class Player 
@@ -55,5 +58,8 @@ public class Player
 	{
 		this.speedScalar = speed;
 	}
-	
+	public void draw(Graphics g,GamePanel panel)
+	{
+		g.drawImage(image,x,y,panel);
+	}
 }
