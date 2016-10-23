@@ -20,10 +20,14 @@ public class GamePanel extends JPanel
 	BufferedImage brownBlock = null;
 	BufferedImage whiteBlock = null;
 	BufferedImage grayBlock = null;
+	BufferedImage drill = null;
+	BufferedImage invert = null;
+	BufferedImage speedboost = null;
 	int step = 5;
 	ArrayList<Terrain> boulders = new ArrayList<Terrain>();
-
+	ArrayList<Powerups> power = new ArrayList<Powerups>();
 	Terrain tempTerrain;
+	Powerups tempPower;
 	public GamePanel()
 	{
 	setOpaque(true);	
@@ -36,7 +40,7 @@ public class GamePanel extends JPanel
 		
 		try{
 		      backgroundImage = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      backgroundImage = ImageIO.read(getClass().getResource("/images/Background.jpg"));
+		      backgroundImage = ImageIO.read(getClass().getResource("/images/Background.png"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
@@ -46,7 +50,7 @@ public class GamePanel extends JPanel
 		
 		try{
 		      brownBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      brownBlock = ImageIO.read(getClass().getResource("/images/Brown_block.jpg"));
+		      brownBlock = ImageIO.read(getClass().getResource("/images/Brown_block.png"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
@@ -56,7 +60,7 @@ public class GamePanel extends JPanel
 		
 		try{
 		      whiteBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      whiteBlock = ImageIO.read(getClass().getResource("/images/White_Block.jpg"));
+		      whiteBlock = ImageIO.read(getClass().getResource("/images/White_Block.png"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
@@ -66,12 +70,39 @@ public class GamePanel extends JPanel
 		
 		try{
 		      grayBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      grayBlock = ImageIO.read(getClass().getResource("/images/Gray_Block.jpg"));
+		      grayBlock = ImageIO.read(getClass().getResource("/images/Gray_Block.png"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
+		
+		try{
+		      drill = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
+		      drill = ImageIO.read(getClass().getResource("/images/DrillPower.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		
+		try{
+		      invert = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
+		      invert = ImageIO.read(getClass().getResource("/images/InvertPower.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		try{
+		      speedboost = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
+		      speedboost = ImageIO.read(getClass().getResource("/images/SpeedboostPower.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		
 		
 		
 		    }
@@ -105,6 +136,34 @@ public class GamePanel extends JPanel
 				boulders.remove(i);
 			}
 		}
+		
+		int randPower = (int) (Math.random()*50); //% chance
+		if(randPower>=49)
+		{
+			int randomBlock =  (int) (Math.random()*3);
+			if(randomBlock == 0)
+				tempPower= new Powerups(drill);
+				//boulders.add(new Terrain(brownBlock));
+			else if(randomBlock == 1)
+				tempPower = new Powerups(invert);
+
+				//boulders.add(new Terrain(grayBlock));
+			else if(randomBlock == 2)
+				tempPower = new Powerups(speedboost);
+
+				//boulders.add(new Terrain(whiteBlock));
+			power.add(tempPower);
+			tempPower = null;
+			}
+		
+		for(int i = 0; i<power.size();i++)
+		{
+			tempPower = power.get(i);
+			if(tempPower.getY()>1010)
+			{
+				power.remove(i);
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g)
@@ -120,7 +179,12 @@ public class GamePanel extends JPanel
 			tempTerrain.setY(tempTerrain.getY()+5);
 			g.drawImage(tempTerrain.getImage(), tempTerrain.getX(), tempTerrain.getY(), this);
 		}
-		
+		for(int i = 0;i<power.size();i++)
+		{
+			tempPower = power.get(i);
+			tempPower.setY(tempPower.getY()+5);
+			g.drawImage(tempPower.getImage(), tempPower.getX(), tempPower.getY(), this);
+		}
 		
 		
 		step+=5;
