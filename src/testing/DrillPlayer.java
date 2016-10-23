@@ -113,7 +113,7 @@ public class DrillPlayer extends Player
 		
 		
 		super.setImage(imageCruise);
-		
+		super.isInvincible(180);
 	}
 	public void moveLeft()
 	{

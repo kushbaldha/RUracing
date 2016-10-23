@@ -3,6 +3,7 @@ package testing;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -39,6 +40,14 @@ public class GamePanel extends JPanel implements KeyListener
 	int powercounter2 = 180;
 	boolean powerCheck1 = false;
 	boolean powerCheck2 = false;
+	Rectangle life1;
+	Rectangle powerUp1;
+	Rectangle invincible1;
+	Rectangle life2;
+	Rectangle powerUp2;
+	Rectangle invincible2;
+	boolean stop = false;
+	
 
 	
 	int step = 5;
@@ -55,6 +64,7 @@ public class GamePanel extends JPanel implements KeyListener
 	{
 		player1 = new RegPlayer(100,850,1);
 		player2 = new RegPlayer(200,850,2);
+		life1 = new Rectangle();
 		
 		try{
 		      backgroundImage = new BufferedImage(750,65000, BufferedImage.TYPE_INT_ARGB);
@@ -126,6 +136,16 @@ public class GamePanel extends JPanel implements KeyListener
 		    }
 	public void update()
 	{
+		if(!stop)
+		{
+			if(player1.life == 0)
+				{
+				stop = true;
+				}
+			if(player2.life == 0)
+				{
+				stop = true;
+				}
 		updateBoulder();
 		updatePower();		
 		checkCollisionBoulder();
@@ -200,7 +220,7 @@ public class GamePanel extends JPanel implements KeyListener
 	}
 	
 	
-	
+	}
 	
 	
 	public void keyPressed(KeyEvent e)
@@ -381,6 +401,20 @@ public class GamePanel extends JPanel implements KeyListener
 		else
 			player2= new InvertedPlayer(x,y,id);
 	}
+	public void drillPlayer(int x, int y, int id)
+	{
+		if(id == 1)
+			player1 = new DrillPlayer(x,y,id);
+		else
+			 player2= new DrillPlayer(x,y,id);
+	}
+	public void boostedPlayer(int x, int y, int id)
+	{
+		if(id == 1)
+			player1 = new SpeedPlayer(x,y,id);
+		else
+			 player2= new SpeedPlayer(x,y,id);
+	}
 	public void checkCollisionBoulder()
 	{
 		for(int i = 0; i < boulders.size(); i++)
@@ -390,7 +424,7 @@ public class GamePanel extends JPanel implements KeyListener
 			{
 				if(!player1.invincible)
 				{player1.life --;
-				player1.isInvincible();}
+				player1.isInvincible(60);}
 				System.out.println(player1.life);
 
 			}
@@ -398,7 +432,7 @@ public class GamePanel extends JPanel implements KeyListener
 			{
 				if(!player2.invincible)
 				{player2.life --;
-				player2.isInvincible();}
+				player2.isInvincible(60);}
 				System.out.println(player2.life);
 			}
 
@@ -413,6 +447,10 @@ public class GamePanel extends JPanel implements KeyListener
 			{
 				if(tempPower.id == 0) //drill
 				{
+					drillPlayer(player1.x,player1.y,player1.id);
+					powerCheck1 = true;
+					powercounter1 = 180;
+					power.remove(i);
 					
 				}
 				else if(tempPower.id == 1) //invert
@@ -422,16 +460,22 @@ public class GamePanel extends JPanel implements KeyListener
 					powercounter2 = 180;
 					power.remove(i);
 				}
-				else if(tempPower.id == 2) //speedboost
+				else if(tempPower.id == 2) //speed boost
 				{
-					
+					boostedPlayer(player1.x,player1.y,player1.id);
+					powerCheck1 = true;
+					powercounter1= 180;
+					power.remove(i);
 				}
 			}
 			if(player2.hitbox.intersects(tempPower.hitbox))
 			{
 				if(tempPower.id == 0) //drill
 				{
-					
+					drillPlayer(player2.x,player2.y,player2.id);
+					powerCheck2 = true;
+					powercounter2 = 180;
+					power.remove(i);
 				}
 				else if(tempPower.id == 1) //invert
 				{
@@ -440,19 +484,22 @@ public class GamePanel extends JPanel implements KeyListener
 					powercounter1 = 180;
 					power.remove(i);
 				}
-				else if(tempPower.id == 2) //speedboost
+				else if(tempPower.id == 2) //speed boost
 				{
-					
+					boostedPlayer(player2.x,player2.y,player2.id);
+					powerCheck2 = true;
+					powercounter2= 180;
+					power.remove(i);
 				}
 			}
 		}
 	}
-
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	}
 
 	

@@ -58,7 +58,7 @@ public class SpeedPlayer extends Player
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
-		super.setSpeed(2);
+		super.setSpeed(5);
 		}
 		
 		else if(id == 2){
@@ -108,7 +108,7 @@ public class SpeedPlayer extends Player
 			    }catch(IOException e){
 			      System.out.println("Error: "+e);
 			    }
-			super.setSpeed(2);
+			super.setSpeed(5);
 			}
 		
 		

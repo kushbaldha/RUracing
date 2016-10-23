@@ -45,7 +45,7 @@ public class Player
 	}
 	public void moveUp()
 	{
-		setY(this.y - (int)speedScalar*step);
+		setY(this.y - (int)speedScalar*(step-5));
 	}
 	public void moveRight()
 	{
@@ -54,7 +54,7 @@ public class Player
 	}
 	public void moveDown()
 	{
-		setY(this.y + (int)speedScalar*step);
+		setY(this.y + (int)speedScalar*(step-5));
 	}
 	public void setSpeed(double speed)
 	{
@@ -83,17 +83,17 @@ public class Player
 	public void update()
 	{
 		if(invincible)
-		inviCounter++;
-		if(inviCounter >= 60)
+		inviCounter--;
+		if(inviCounter <= 0)
 		{
 			invincible = false;
-			inviCounter = 0;
+			inviCounter = 61;
 		}
 		System.out.println(inviCounter);
 	}
-	public void isInvincible()
+	public void isInvincible(int time)
 	{
 		invincible = true;
-		inviCounter = 0;
+		inviCounter = time;
 	}
 }
