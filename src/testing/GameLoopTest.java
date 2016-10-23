@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GameLoopTest extends JFrame implements ActionListener
+public class GameLoopTest extends JFrame 
 {
    private GamePanel gamePanel = new GamePanel();
  
@@ -37,10 +37,6 @@ public class GameLoopTest extends JFrame implements ActionListener
       glt.setVisible(true);
    }
    
-   public void actionPerformed(ActionEvent e)
-   {
-      Object s = e.getSource();
-   }
    
    //Starts a new thread and runs the game loop in it.
    public void runGameLoop()

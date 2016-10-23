@@ -18,7 +18,7 @@ public class Player
 	Rectangle hitbox;
 	BufferedImage image;
 	
-	public Player(int x, int y,int id, BufferedImage image)
+	public Player(int x, int y,int id)
 	{
 		this.x = x;
 		this.y = y;
@@ -61,5 +61,9 @@ public class Player
 	public void draw(Graphics g,GamePanel panel)
 	{
 		g.drawImage(image,x,y,panel);
+	}
+	public void stationary()
+	{
+		
 	}
 }

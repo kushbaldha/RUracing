@@ -2,6 +2,7 @@ package testing;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,8 +36,8 @@ public class GamePanel extends JPanel
 	
 	public void load()
 	{
-		//player1 = new RegPlayer(100,50,1,image);
-		//player2 = new RegPlayer(400,50,2,image2);
+		player1 = new RegPlayer(100,50,1);
+		player2 = new RegPlayer(400,50,2);
 		
 		try{
 		      backgroundImage = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
@@ -165,7 +166,43 @@ public class GamePanel extends JPanel
 			}
 		}
 	}
-	
+	public void keyPressed(KeyEvent e)
+	{
+		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_LEFT) {
+	        player2.moveLeft();
+	    }
+
+	    if (key == KeyEvent.VK_RIGHT) {
+	        player2.moveRight();
+	    }
+
+	    if (key == KeyEvent.VK_UP) {
+	        player2.moveUp();
+	    }
+
+	    if (key == KeyEvent.VK_DOWN) {
+	        player2.moveDown();
+	    }
+	    
+	    
+	    if (key == KeyEvent.VK_A) {
+	        player1.moveLeft();
+	    }
+
+	    if (key == KeyEvent.VK_D) {
+	        player1.moveRight();
+	    }
+
+	    if (key == KeyEvent.VK_W) {
+	        player1.moveUp();
+	    }
+
+	    if (key == KeyEvent.VK_S) {
+	        player1.moveDown();
+	    }
+		
+	}
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -186,6 +223,7 @@ public class GamePanel extends JPanel
 			g.drawImage(tempPower.getImage(), tempPower.getX(), tempPower.getY(), this);
 		}
 		
+		g.drawImage(player1.image,player1.x,player1.y,this);
 		
 		step+=5;
 		if(step == 3000)
