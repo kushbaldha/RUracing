@@ -65,7 +65,8 @@ public class GamePanel extends JPanel implements KeyListener
 	{
 		player1 = new RegPlayer(100,850,1,3);
 		player2 = new RegPlayer(200,850,2,3);
-		
+		invincible1 = new Rectangle(30,60, 10,10);
+		invincible2 = new Rectangle(720,60, 10, 10);
 		try{
 		      backgroundImage = new BufferedImage(750,65000, BufferedImage.TYPE_INT_ARGB);
 		      backgroundImage = ImageIO.read(getClass().getResource("/images/Background.png"));
@@ -318,7 +319,22 @@ public class GamePanel extends JPanel implements KeyListener
 		{
 			g.drawImage(life2, 730-(20+i*30) , 30, this);
 		}
-		//player1.draw(g,this);
+		if(player1.invincible)
+		{
+			g.drawRect(30, 60, player1.inviCounter*2, 10);
+			}
+		if(player2.invincible)
+		{
+				g.drawRect(500, 60, player2.inviCounter*2, 10);
+		}
+		if(powerCheck1)
+		{
+			g.drawRect(30,90,powercounter1*2,10);
+		}
+		if(powerCheck2)
+		{
+			g.drawRect(500, 60, powercounter2*2,10);
+		}
 	}
 
 	@Override
