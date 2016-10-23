@@ -78,8 +78,8 @@ public class GamePanel extends JPanel
 	public void update()
 	{
 		
-		int rand = (int) (Math.random()*2); //% chance
-		if(rand>=1)
+		int rand = (int) (Math.random()*20); //% chance
+		if(rand>=19)
 		{
 			int randomBlock =  (int) (Math.random()*3);
 			if(randomBlock == 0)
