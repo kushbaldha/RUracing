@@ -1,5 +1,7 @@
-	package testing;
+package testing;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,15 +14,16 @@ public class GamePanel extends JPanel
 
 	Player player1;
 	Player player2;
-	public GamePanel ()
+	BufferedImage backgroundImage = null;
+	public GamePanel()
 	{
+	setOpaque(true);	
 	}
 	
 	public void load()
 	{
 		//player1 = new RegPlayer(100,50,1,image);
 		//player2 = new RegPlayer(400,50,2,image2);
-		 BufferedImage backgroundImage = null;
 		 try {
 		     backgroundImage = ImageIO.read(new File("background.jpg"));
 		 } catch (IOException e) {
@@ -30,10 +33,13 @@ public class GamePanel extends JPanel
 	{
 		
 	}
-	public void paintComponent(Graphics G)
-	public void draw()
+	
+	public void paintComponent(Graphics g)
 	{
-		
+		super.paintComponent(g);
+		g.setColor(Color.BLACK);
+		g.drawImage(backgroundImage,50,1000,null); 
+
 	}
 	
 	

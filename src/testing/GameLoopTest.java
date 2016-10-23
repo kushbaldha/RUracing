@@ -1,5 +1,6 @@
 package testing;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,7 +13,7 @@ public class GameLoopTest extends JFrame implements ActionListener
 {
    private GamePanel gamePanel = new GamePanel();
  
-   private boolean running = false;
+   private boolean running = true;
    private boolean paused = false;
    private int fps = 60;
    private int frameCount = 0;
@@ -21,16 +22,12 @@ public class GameLoopTest extends JFrame implements ActionListener
    
    public GameLoopTest()
    {
-      super("Fixed Timestep Game Loop Test");
+      super();
       Container cp = getContentPane();
       cp.setLayout(new BorderLayout());
-      JPanel p = new JPanel();
-      p.setLayout(new GridLayout(1,2));
-      cp.add(gamePanel, BorderLayout.CENTER);
-      cp.add(p, BorderLayout.SOUTH);
       setSize(500, 1000);
-      
-     
+      cp.add(gamePanel, BorderLayout.CENTER);
+      runGameLoop();
    }
    
    public static void main(String[] args)
@@ -145,6 +142,7 @@ public class GameLoopTest extends JFrame implements ActionListener
   	   private void drawGame()
   	   {
   	      gamePanel.repaint();
+  	      //frameCount++;
   	      //testing
   	   }
    }
