@@ -40,12 +40,10 @@ public class GamePanel extends JPanel implements KeyListener
 	int powercounter2 = 180;
 	boolean powerCheck1 = false;
 	boolean powerCheck2 = false;
-	Rectangle powerUp1;
-	Rectangle invincible1;
-	Rectangle powerUp2;
-	Rectangle invincible2;
-	BufferedImage life1 = null;
+	BufferedImage life1= null;
 	BufferedImage life2 = null;
+	BufferedImage win1 = null;
+	BufferedImage win2 = null;
 
 	boolean stop = false;
 	
@@ -65,11 +63,28 @@ public class GamePanel extends JPanel implements KeyListener
 	{
 		player1 = new RegPlayer(100,850,1,3);
 		player2 = new RegPlayer(200,850,2,3);
-		invincible1 = new Rectangle(30,60, 10,10);
-		invincible2 = new Rectangle(720,60, 10, 10);
 		try{
 		      backgroundImage = new BufferedImage(750,65000, BufferedImage.TYPE_INT_ARGB);
 		      backgroundImage = ImageIO.read(getClass().getResource("/images/Background.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		
+		try{
+		      win1 = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      win1 = ImageIO.read(getClass().getResource("/images/Win1.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		
+		
+		try{
+		      win2 = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      win2 = ImageIO.read(getClass().getResource("/images/Win2.png"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
@@ -156,14 +171,15 @@ public class GamePanel extends JPanel implements KeyListener
 	{
 		if(!stop)
 		{
-			if(player1.life == 0)
+			if(player1.life <= 0)
+				{
+				stop = true;
+			}
+			if(player2.life <= 0)
 				{
 				stop = true;
 				}
-			if(player2.life == 0)
-				{
-				stop = true;
-				}
+				
 		updateBoulder();
 		updatePower();		
 		checkCollisionBoulder();
@@ -235,10 +251,12 @@ public class GamePanel extends JPanel implements KeyListener
 		{
 			player2.moveDown();
 		}
-	}
+		}
+		}
 	
 	
-	}
+	
+	
 	
 	
 	public void keyPressed(KeyEvent e)
@@ -300,7 +318,21 @@ public class GamePanel extends JPanel implements KeyListener
 			tempPower.setY(tempPower.getY()+7);
 			g.drawImage(tempPower.getImage(), tempPower.getX(), tempPower.getY(), this);
 		}
-		
+		if(stop)
+		{
+			if(player1.life <= 0)
+				{
+				stop = true;
+				g.drawImage(win2, 0, 0, this);
+				//g.fillRect(0, 0, 500, 500);
+			}
+			if(player2.life <= 0)
+				{
+				stop = true;
+				g.drawImage(win1, 0, 0, this);
+				//g.fillRect(0, 0, 500, 500);
+				}
+		}
 		g.drawImage(player1.getImage(),player1.getX(),player1.getY(),this);
 		g.drawImage(player2.getImage(),player2.getX(),player2.getY(),this);
 		step+=5;
@@ -311,6 +343,7 @@ public class GamePanel extends JPanel implements KeyListener
 		g.drawString(Integer.toString(player1.life), 10, 30);
 		g.drawString(Integer.toString(player2.life), 700, 30);
 		g.drawString(Integer.toString(player2.inviCounter), 700, 50);
+		
 		for(int i = 1 ; i<=player1.life;i++)
 		{
 			g.drawImage(life1, 20+i*30 , 30, this);
@@ -335,6 +368,7 @@ public class GamePanel extends JPanel implements KeyListener
 		{
 			g.drawRect(500, 60, powercounter2*2,10);
 		}
+	
 	}
 
 	@Override
