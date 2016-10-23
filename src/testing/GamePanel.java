@@ -35,6 +35,11 @@ public class GamePanel extends JPanel implements KeyListener
 	boolean keyPressedDown = false;
 	boolean keyPressedLeft = false;
 	boolean keyPressedRight = false;
+	int powercounter1 = 180;
+	int powercounter2 = 180;
+	boolean powerCheck1 = false;
+	boolean powerCheck2 = false;
+
 	
 	int step = 5;
 	ArrayList<Terrain> boulders = new ArrayList<Terrain>();
@@ -127,7 +132,30 @@ public class GamePanel extends JPanel implements KeyListener
 		player1.update();
 		player2.update();
 		checkCollisionPower();
-		
+		if(powerCheck1)
+		{
+			if(powercounter1<=0)
+			{
+				powerCheck1 = false;
+				player1 = new RegPlayer(player1.getX(),player1.getY(),player1.id);
+			}
+			else
+			{
+				powercounter1--;
+			}
+		}
+		if(powerCheck2)
+		{
+			if(powercounter2<=0)
+			{
+				powerCheck2 = false;
+				player1 = new RegPlayer(player1.getX(),player1.getY(),player1.id);
+			}
+			else
+			{
+				powercounter2--;
+			}
+		}
 		
 		
 		
@@ -328,15 +356,12 @@ public class GamePanel extends JPanel implements KeyListener
 				int randomBlock =  (int) (Math.random()*3);
 				if(randomBlock == 0)
 					tempPower= new Powerups(drill, 0);
-					//boulders.add(new Terrain(brownBlock));
 				else if(randomBlock == 1)
 					tempPower = new Powerups(invert, 1);
 
-					//boulders.add(new Terrain(grayBlock));
 				else if(randomBlock == 2)
 					tempPower = new Powerups(speedboost, 2);
 
-					//boulders.add(new Terrain(whiteBlock));
 				power.add(tempPower);
 				tempPower = null;
 				}		
@@ -349,8 +374,12 @@ public class GamePanel extends JPanel implements KeyListener
 				}
 			}
 		}
-	public void invertPlayer(int x, int y)
+	public void invertPlayer(int x, int y, int id)
 	{
+		if(id == 1)
+			player1 = new InvertedPlayer(x,y,id);
+		else
+			player2= new InvertedPlayer(x,y,id);
 	}
 	public void checkCollisionBoulder()
 	{
@@ -377,7 +406,7 @@ public class GamePanel extends JPanel implements KeyListener
 	}
 	public void checkCollisionPower()
 	{
-		for(int i = 0; i <power.size(),i++)
+		for(int i = 0; i <power.size();i++)
 		{
 			tempPower = power.get(i);
 			if(player1.hitbox.intersects(tempPower.hitbox))
@@ -386,19 +415,46 @@ public class GamePanel extends JPanel implements KeyListener
 				{
 					
 				}
-				if(tempPower.id == 1) //invert
+				else if(tempPower.id == 1) //invert
 				{
-					invertPlayer(player1.x,player1.y);
+					invertPlayer(player2.x,player2.y,player2.id);
+					powerCheck2 = true;
+					powercounter2 = 180;
+					power.remove(i);
 				}
-				if(tempPower.id == 2) //speedboost
+				else if(tempPower.id == 2) //speedboost
+				{
+					
+				}
+			}
+			if(player2.hitbox.intersects(tempPower.hitbox))
+			{
+				if(tempPower.id == 0) //drill
+				{
+					
+				}
+				else if(tempPower.id == 1) //invert
+				{
+					invertPlayer(player1.x,player1.y,player1.id);
+					powerCheck1 = true;
+					powercounter1 = 180;
+					power.remove(i);
+				}
+				else if(tempPower.id == 2) //speedboost
 				{
 					
 				}
 			}
 		}
 	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	}
+
 	
 	
 
