@@ -3,6 +3,7 @@ package testing;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.print.DocFlavor.URL;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel
+public class GamePanel extends JPanel implements KeyListener
 {
 
 	Player player1;
@@ -24,6 +25,16 @@ public class GamePanel extends JPanel
 	BufferedImage drill = null;
 	BufferedImage invert = null;
 	BufferedImage speedboost = null;
+	KeyListener listening;
+	boolean keyPressedW = false;
+	boolean keyPressedA = false;
+	boolean keyPressedS = false;
+	boolean keyPressedD = false;
+	boolean keyPressedUp = false;
+	boolean keyPressedDown = false;
+	boolean keyPressedLeft = false;
+	boolean keyPressedRight = false;
+	
 	int step = 5;
 	ArrayList<Terrain> boulders = new ArrayList<Terrain>();
 	ArrayList<Powerups> power = new ArrayList<Powerups>();
@@ -31,13 +42,13 @@ public class GamePanel extends JPanel
 	Powerups tempPower;
 	public GamePanel()
 	{
-	setOpaque(true);	
+	setOpaque(true);
 	}
 	
 	public void load()
 	{
-		player1 = new RegPlayer(100,50,1);
-		player2 = new RegPlayer(400,50,2);
+		player1 = new RegPlayer(100,850,1);
+		player2 = new RegPlayer(200,850,2);
 		
 		try{
 		      backgroundImage = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
@@ -169,37 +180,38 @@ public class GamePanel extends JPanel
 	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
+		System.out.println("printing");
 		if (key == KeyEvent.VK_LEFT) {
-	        player2.moveLeft();
+	        keyPressedLeft = true;
 	    }
 
 	    if (key == KeyEvent.VK_RIGHT) {
-	        player2.moveRight();
+	        keyPressedRight = true;
 	    }
 
 	    if (key == KeyEvent.VK_UP) {
-	        player2.moveUp();
+	        keyPressedUp = true;
 	    }
 
 	    if (key == KeyEvent.VK_DOWN) {
-	        player2.moveDown();
+	        keyPressedDown = true;
 	    }
 	    
 	    
 	    if (key == KeyEvent.VK_A) {
-	        player1.moveLeft();
+	    	keyPressedA = true;
 	    }
 
 	    if (key == KeyEvent.VK_D) {
-	        player1.moveRight();
+	        keyPressedD = true;
 	    }
 
 	    if (key == KeyEvent.VK_W) {
-	        player1.moveUp();
+	        keyPressedW = true;
 	    }
 
 	    if (key == KeyEvent.VK_S) {
-	        player1.moveDown();
+	        keyPressedS = true;
 	    }
 		
 	}
@@ -213,23 +225,35 @@ public class GamePanel extends JPanel
 		for(int i = 0;i<boulders.size();i++)
 		{
 			tempTerrain = boulders.get(i);
-			tempTerrain.setY(tempTerrain.getY()+5);
+			tempTerrain.setY(tempTerrain.getY()+7);
 			g.drawImage(tempTerrain.getImage(), tempTerrain.getX(), tempTerrain.getY(), this);
 		}
 		for(int i = 0;i<power.size();i++)
 		{
 			tempPower = power.get(i);
-			tempPower.setY(tempPower.getY()+5);
+			tempPower.setY(tempPower.getY()+7);
 			g.drawImage(tempPower.getImage(), tempPower.getX(), tempPower.getY(), this);
 		}
 		
-		g.drawImage(player1.image,player1.x,player1.y,this);
-		g.drawImage(player2.image, player2.x, player2.y, this);
+		g.drawImage(player1.getImage(),player1.getX(),player1.getY(),this);
+		g.drawImage(player2.getImage(),player2.getX(),player2.getY(),this);
 		
 		step+=5;
 		if(step == 3000)
 			step = 1005;
 		//player1.draw(g,this);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

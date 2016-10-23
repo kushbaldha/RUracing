@@ -23,18 +23,14 @@ public class Player
 		this.x = x;
 		this.y = y;
 		this.id = id;
-		hitbox = new Rectangle(image.getWidth(),image.getHeight());
-		this.image = image;
 	}
 	public void setX(int x)
 	{
 		this.x = x;
-		hitbox.setLocation(x, y);
 	}
 	public void setY(int y)
 	{
 		this.y = y;
-		hitbox.setLocation(x, y);
 	}
 	
 	public void moveLeft()
@@ -43,7 +39,7 @@ public class Player
 	}
 	public void moveUp()
 	{
-		setY(this.y + (int)speedScalar*step);
+		setY(this.y - (int)speedScalar*step);
 	}
 	public void moveRight()
 	{
@@ -52,7 +48,7 @@ public class Player
 	}
 	public void moveDown()
 	{
-		setY(this.y - (int)speedScalar*step);
+		setY(this.y + (int)speedScalar*step);
 	}
 	public void setSpeed(double speed)
 	{
@@ -62,8 +58,19 @@ public class Player
 	{
 		g.drawImage(image,x,y,panel);
 	}
-	public void stationary()
+	public BufferedImage getImage(){
+		return image;
+	}
+	public void setImage(BufferedImage image)
 	{
-		
+		this.image = image;
+	}
+	public int getY()
+	{
+		return y;
+	}
+	public int getX()
+	{
+		return x;
 	}
 }

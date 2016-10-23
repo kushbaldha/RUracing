@@ -28,6 +28,8 @@ public class GameLoopTest extends JFrame
       setSize(500, 1000);
       cp.add(gamePanel, BorderLayout.CENTER);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+      gamePanel.addKeyListener(gamePanel);
+		 gamePanel.setFocusable(true);
       runGameLoop();
    }
    
@@ -58,6 +60,7 @@ public class GameLoopTest extends JFrame
   		 if(count == 0)
   		 {
   			 gamePanel.load();
+  			
   			 count++;
   		 }
   	      //This value would probably be stored elsewhere.

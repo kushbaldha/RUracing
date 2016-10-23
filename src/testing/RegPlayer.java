@@ -34,7 +34,7 @@ public class RegPlayer extends Player
 		
 		try{
 		      imageDown = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      imageDown = ImageIO.read(getClass().getResource("/images/RegPlayer1_DOWN.png"));
+		      imageDown = ImageIO.read(getClass().getResource("/images/RegPlayer1.png"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
@@ -58,6 +58,7 @@ public class RegPlayer extends Player
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
+		super.setSpeed(2);
 		}
 		
 		else if(id == 2){
@@ -83,7 +84,7 @@ public class RegPlayer extends Player
 			
 			try{
 			      imageDown = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-			      imageDown = ImageIO.read(getClass().getResource("/images/RegPlayer2_DOWN.png"));
+			      imageDown = ImageIO.read(getClass().getResource("/images/RegPlayer2.png"));
 
 			      System.out.println("Reading complete.");
 			    }catch(IOException e){
@@ -107,34 +108,35 @@ public class RegPlayer extends Player
 			    }catch(IOException e){
 			      System.out.println("Error: "+e);
 			    }
+			super.setSpeed(2);
 			}
 		
 		
-		
+		super.setImage(imageCruise);
 		
 	}
 	public void moveLeft()
 	{
 		super.moveLeft();
-		super.image = imageLeft;
+		super.setImage(imageLeft);
 	}
 	public void moveUp()
 	{
 		super.moveUp();
-		super.image = imageUp;
+		super.setImage(imageUp);
 	}
 	public void moveRight()
 	{
 		super.moveRight();
-		super.image = imageRight;
+		super.setImage(imageRight);
 	}
 	public void moveDown()
 	{
 		super.moveDown();
-		super.image = imageDown;
+		super.setImage(imageDown);
 	}
-	public void stationary()
+	public void cruise()
 	{
-		super.image = this.image;
+		super.setImage(imageCruise);
 	}
 }
