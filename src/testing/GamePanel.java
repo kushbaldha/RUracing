@@ -290,11 +290,6 @@ public class GamePanel extends JPanel implements KeyListener
 		
 	}
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 		public void updateBoulder()
 		{
 			int rand = (int) (Math.random()*20); //% chance
@@ -354,9 +349,8 @@ public class GamePanel extends JPanel implements KeyListener
 				}
 			}
 		}
-	public void invertPlayer()
+	public void invertPlayer(int x, int y)
 	{
-		
 	}
 	public void checkCollisionBoulder()
 	{
@@ -388,13 +382,21 @@ public class GamePanel extends JPanel implements KeyListener
 			tempPower = power.get(i);
 			if(player1.hitbox.intersects(tempPower.hitbox))
 			{
-				if(tempPower.id == 0)
+				if(tempPower.id == 0) //drill
 				{
 					
 				}
-				if(te)
+				if(tempPower.id == 1) //invert
+				{
+					invertPlayer(player1.x,player1.y);
+				}
+				if(tempPower.id == 2) //speedboost
+				{
+					
+				}
 			}
 		}
+	}
 	}
 	}
 	
