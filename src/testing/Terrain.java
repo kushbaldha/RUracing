@@ -38,6 +38,12 @@ public class Terrain
 	public void setY(int y)
 	{
 		this.y = y;
+		hitbox.setLocation(x, y);
+	}
+	public void setX(int x)
+	{
+		this.x = x;
+		hitbox.setLocation(x,y);
 	}
 
 }
