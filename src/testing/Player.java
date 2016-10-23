@@ -17,6 +17,8 @@ public class Player
 	int life = 3;
 	Rectangle hitbox;
 	BufferedImage image;
+	boolean invincible = false;
+	int inviCounter = 0;
 	
 	public Player(int x, int y,int id)
 	{
@@ -75,5 +77,21 @@ public class Player
 	public int getX()
 	{
 		return x;
+	}
+	public void update()
+	{
+		if(invincible)
+		inviCounter++;
+		if(inviCounter >= 60)
+		{
+			invincible = false;
+			inviCounter = 0;
+		}
+		System.out.println(inviCounter);
+	}
+	public void isInvincible()
+	{
+		invincible = true;
+		inviCounter = 0;
 	}
 }

@@ -25,7 +25,7 @@ public class GameLoopTest extends JFrame
       super();
       Container cp = getContentPane();
       cp.setLayout(new BorderLayout());
-      setSize(500, 1000);
+      setSize(750, 65000);
       cp.add(gamePanel, BorderLayout.CENTER);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
       gamePanel.addKeyListener(gamePanel);

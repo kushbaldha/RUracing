@@ -1,6 +1,7 @@
 package testing;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -51,7 +52,7 @@ public class GamePanel extends JPanel implements KeyListener
 		player2 = new RegPlayer(200,850,2);
 		
 		try{
-		      backgroundImage = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
+		      backgroundImage = new BufferedImage(750,65000, BufferedImage.TYPE_INT_ARGB);
 		      backgroundImage = ImageIO.read(getClass().getResource("/images/Background.png"));
 
 		      System.out.println("Reading complete.");
@@ -122,8 +123,10 @@ public class GamePanel extends JPanel implements KeyListener
 	{
 		updateBoulder();
 		updatePower();		
-		
-		
+		checkCollisionBoulder();
+		player1.update();
+		player2.update();
+		checkCollisionPower();
 		
 		
 		
@@ -217,7 +220,7 @@ public class GamePanel extends JPanel implements KeyListener
 		super.paintComponent(g);
 		
 		
-		g.drawImage(backgroundImage,0,-4000+step,this); 
+		g.drawImage(backgroundImage,0,-64000+step,this); 
 		
 		for(int i = 0;i<boulders.size();i++)
 		{
@@ -235,8 +238,13 @@ public class GamePanel extends JPanel implements KeyListener
 		g.drawImage(player1.getImage(),player1.getX(),player1.getY(),this);
 		g.drawImage(player2.getImage(),player2.getX(),player2.getY(),this);
 		step+=5;
-		if(step == 3000)
+		if(step == 62000)
 			step = 1005;
+		 g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+		 g.setColor(Color.WHITE);
+		g.drawString(Integer.toString(player1.life), 10, 30);
+		g.drawString(Integer.toString(player2.life), 700, 30);
+		g.drawString(Integer.toString(player2.inviCounter), 700, 50);
 		//player1.draw(g,this);
 	}
 
@@ -350,7 +358,44 @@ public class GamePanel extends JPanel implements KeyListener
 	{
 		
 	}
-	
+	public void checkCollisionBoulder()
+	{
+		for(int i = 0; i < boulders.size(); i++)
+		{
+			tempTerrain = boulders.get(i);
+			if(player1.hitbox.intersects(tempTerrain.hitbox))
+			{
+				if(!player1.invincible)
+				{player1.life --;
+				player1.isInvincible();}
+				System.out.println(player1.life);
+
+			}
+			if(player2.hitbox.intersects(boulders.get(i).hitbox))
+			{
+				if(!player2.invincible)
+				{player2.life --;
+				player2.isInvincible();}
+				System.out.println(player2.life);
+			}
+
+		}
+	}
+	public void checkCollisionPower()
+	{
+		for(int i = 0; i <power.size(),i++)
+		{
+			tempPower = power.get(i);
+			if(player1.hitbox.intersects(tempPower.hitbox))
+			{
+				if(tempPower.id == 0)
+				{
+					
+				}
+				if(te)
+			}
+		}
+	}
 	}
 	
 	
