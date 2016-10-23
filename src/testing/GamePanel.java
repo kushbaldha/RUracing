@@ -239,7 +239,6 @@ public class GamePanel extends JPanel implements KeyListener
 		
 		g.drawImage(player1.getImage(),player1.getX(),player1.getY(),this);
 		g.drawImage(player2.getImage(),player2.getX(),player2.getY(),this);
-		
 		step+=5;
 		if(step == 3000)
 			step = 1005;

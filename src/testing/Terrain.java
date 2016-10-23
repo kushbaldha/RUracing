@@ -1,5 +1,6 @@
 package testing;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ public class Terrain
 {
 	int x;
 	int y;
+	Rectangle hitbox;
 	BufferedImage image;	
 
 
@@ -15,6 +17,7 @@ public class Terrain
 		x = (int) (Math.random()*500);
 		y = (int) (Math.random()*-100);
 		this.image = image;
+		hitbox = new Rectangle(x,y,image.getWidth(),image.getHeight());
 	}
 
 
