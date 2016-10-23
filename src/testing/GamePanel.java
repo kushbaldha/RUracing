@@ -40,12 +40,13 @@ public class GamePanel extends JPanel implements KeyListener
 	int powercounter2 = 180;
 	boolean powerCheck1 = false;
 	boolean powerCheck2 = false;
-	Rectangle life1;
 	Rectangle powerUp1;
 	Rectangle invincible1;
-	Rectangle life2;
 	Rectangle powerUp2;
 	Rectangle invincible2;
+	BufferedImage life1 = null;
+	BufferedImage life2 = null;
+
 	boolean stop = false;
 	
 
@@ -62,9 +63,8 @@ public class GamePanel extends JPanel implements KeyListener
 	
 	public void load()
 	{
-		player1 = new RegPlayer(100,850,1);
-		player2 = new RegPlayer(200,850,2);
-		life1 = new Rectangle();
+		player1 = new RegPlayer(100,850,1,3);
+		player2 = new RegPlayer(200,850,2,3);
 		
 		try{
 		      backgroundImage = new BufferedImage(750,65000, BufferedImage.TYPE_INT_ARGB);
@@ -75,6 +75,23 @@ public class GamePanel extends JPanel implements KeyListener
 		      System.out.println("Error: "+e);
 		    }
 		
+		try{
+		      life1 = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      life1 = ImageIO.read(getClass().getResource("/images/Life1.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		
+		try{
+		      life2 = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      life2 = ImageIO.read(getClass().getResource("/images/Life2.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
 		
 		try{
 		      brownBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
@@ -157,7 +174,7 @@ public class GamePanel extends JPanel implements KeyListener
 			if(powercounter1<=0)
 			{
 				powerCheck1 = false;
-				player1 = new RegPlayer(player1.getX(),player1.getY(),player1.id);
+				player1 = new RegPlayer(player1.getX(),player1.getY(),player1.id,player1.life);
 			}
 			else
 			{
@@ -169,7 +186,7 @@ public class GamePanel extends JPanel implements KeyListener
 			if(powercounter2<=0)
 			{
 				powerCheck2 = false;
-				player1 = new RegPlayer(player1.getX(),player1.getY(),player1.id);
+				player2 = new RegPlayer(player2.getX(),player2.getY(),player2.id,player2.life);
 			}
 			else
 			{
@@ -293,6 +310,14 @@ public class GamePanel extends JPanel implements KeyListener
 		g.drawString(Integer.toString(player1.life), 10, 30);
 		g.drawString(Integer.toString(player2.life), 700, 30);
 		g.drawString(Integer.toString(player2.inviCounter), 700, 50);
+		for(int i = 1 ; i<=player1.life;i++)
+		{
+			g.drawImage(life1, 20+i*30 , 30, this);
+		}
+		for(int i = 1 ; i<=player2.life;i++)
+		{
+			g.drawImage(life2, 730-(20+i*30) , 30, this);
+		}
 		//player1.draw(g,this);
 	}
 
@@ -394,26 +419,26 @@ public class GamePanel extends JPanel implements KeyListener
 				}
 			}
 		}
-	public void invertPlayer(int x, int y, int id)
+	public void invertPlayer(int x, int y, int id, int life)
 	{
 		if(id == 1)
-			player1 = new InvertedPlayer(x,y,id);
+			player1 = new InvertedPlayer(x,y,id, life);
 		else
-			player2= new InvertedPlayer(x,y,id);
+			player2= new InvertedPlayer(x,y,id, life);
 	}
-	public void drillPlayer(int x, int y, int id)
+	public void drillPlayer(int x, int y, int id, int life)
 	{
 		if(id == 1)
-			player1 = new DrillPlayer(x,y,id);
+			player1 = new DrillPlayer(x,y,id, life);
 		else
-			 player2= new DrillPlayer(x,y,id);
+			 player2= new DrillPlayer(x,y,id, life);
 	}
-	public void boostedPlayer(int x, int y, int id)
+	public void boostedPlayer(int x, int y, int id, int life)
 	{
 		if(id == 1)
-			player1 = new SpeedPlayer(x,y,id);
+			player1 = new SpeedPlayer(x,y,id, life);
 		else
-			 player2= new SpeedPlayer(x,y,id);
+			 player2= new SpeedPlayer(x,y,id, life);
 	}
 	public void checkCollisionBoulder()
 	{
@@ -447,7 +472,7 @@ public class GamePanel extends JPanel implements KeyListener
 			{
 				if(tempPower.id == 0) //drill
 				{
-					drillPlayer(player1.x,player1.y,player1.id);
+					drillPlayer(player1.x,player1.y,player1.id, player1.life);
 					powerCheck1 = true;
 					powercounter1 = 180;
 					power.remove(i);
@@ -455,14 +480,14 @@ public class GamePanel extends JPanel implements KeyListener
 				}
 				else if(tempPower.id == 1) //invert
 				{
-					invertPlayer(player2.x,player2.y,player2.id);
+					invertPlayer(player2.x,player2.y,player2.id, player2.life);
 					powerCheck2 = true;
 					powercounter2 = 180;
 					power.remove(i);
 				}
 				else if(tempPower.id == 2) //speed boost
 				{
-					boostedPlayer(player1.x,player1.y,player1.id);
+					boostedPlayer(player1.x,player1.y,player1.id, player1.life);
 					powerCheck1 = true;
 					powercounter1= 180;
 					power.remove(i);
@@ -472,21 +497,21 @@ public class GamePanel extends JPanel implements KeyListener
 			{
 				if(tempPower.id == 0) //drill
 				{
-					drillPlayer(player2.x,player2.y,player2.id);
+					drillPlayer(player2.x,player2.y,player2.id,player2.life);
 					powerCheck2 = true;
 					powercounter2 = 180;
 					power.remove(i);
 				}
 				else if(tempPower.id == 1) //invert
 				{
-					invertPlayer(player1.x,player1.y,player1.id);
+					invertPlayer(player1.x,player1.y,player1.id, player1.life);
 					powerCheck1 = true;
 					powercounter1 = 180;
 					power.remove(i);
 				}
 				else if(tempPower.id == 2) //speed boost
 				{
-					boostedPlayer(player2.x,player2.y,player2.id);
+					boostedPlayer(player2.x,player2.y,player2.id,player2.life);
 					powerCheck2 = true;
 					powercounter2= 180;
 					power.remove(i);

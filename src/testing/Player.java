@@ -20,11 +20,12 @@ public class Player
 	boolean invincible = false;
 	int inviCounter = 0;
 	
-	public Player(int x, int y,int id)
+	public Player(int x, int y,int id, int life)
 	{
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		this.life = life;
 	}
 	public void setX(int x)
 	{

@@ -8,9 +8,9 @@ import javax.imageio.ImageIO;
 public class RegPlayer extends Player
 {
 	BufferedImage imageCruise,imageUp,imageDown,imageLeft,imageRight;
-	public RegPlayer(int x, int y,int id)
+	public RegPlayer(int x, int y,int id, int life)
 	{
-		super(x,y,id); 
+		super(x,y,id, life); 
 		if(id == 1){
 		try{
 		      imageCruise = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);

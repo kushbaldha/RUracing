@@ -8,9 +8,9 @@ import javax.imageio.ImageIO;
 public class DrillPlayer extends Player
 {
 	BufferedImage imageCruise,imageUp,imageDown,imageLeft,imageRight;
-	public DrillPlayer(int x, int y,int id)
+	public DrillPlayer(int x, int y,int id, int life)
 	{
-		super(x,y,id); 
+		super(x,y,id,life); 
 		if(id == 1){
 		try{
 		      imageCruise = new BufferedImage(x, y, BufferedImage.TYPE_INT_ARGB);
