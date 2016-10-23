@@ -44,6 +44,10 @@ public class GamePanel extends JPanel implements KeyListener
 	BufferedImage life2 = null;
 	BufferedImage win1 = null;
 	BufferedImage win2 = null;
+	BufferedImage whiteStar = null;
+	BufferedImage redStar = null;
+	BufferedImage yellowStar = null;
+	Star tempStar;
 
 	boolean stop = false;
 	
@@ -52,6 +56,8 @@ public class GamePanel extends JPanel implements KeyListener
 	int step = 5;
 	ArrayList<Terrain> boulders = new ArrayList<Terrain>();
 	ArrayList<Powerups> power = new ArrayList<Powerups>();
+	ArrayList<Star> starslist = new ArrayList<Star>();
+
 	Terrain tempTerrain;
 	Powerups tempPower;
 	public GamePanel()
@@ -80,7 +86,32 @@ public class GamePanel extends JPanel implements KeyListener
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
+		try{
+		      whiteStar = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      whiteStar = ImageIO.read(getClass().getResource("/images/WhiteStar.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
 		
+		try{
+		      redStar = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      redStar = ImageIO.read(getClass().getResource("/images/RedStar.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
+		
+		try{
+		      yellowStar = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
+		      yellowStar = ImageIO.read(getClass().getResource("/images/YellowStar.png"));
+
+		      System.out.println("Reading complete.");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    }
 		
 		try{
 		      win2 = new BufferedImage(750,6500, BufferedImage.TYPE_INT_ARGB);
@@ -183,6 +214,7 @@ public class GamePanel extends JPanel implements KeyListener
 		updateBoulder();
 		updatePower();		
 		checkCollisionBoulder();
+		updateStar();
 		player1.update();
 		player2.update();
 		checkCollisionPower();
@@ -318,6 +350,12 @@ public class GamePanel extends JPanel implements KeyListener
 			tempPower.setY(tempPower.getY()+7);
 			g.drawImage(tempPower.getImage(), tempPower.getX(), tempPower.getY(), this);
 		}
+		for(int i = 0;i<starslist.size();i++)
+		{
+			tempStar = starslist.get(i);
+			tempStar.setY(tempStar.getY()+5);
+			g.drawImage(tempStar.getImage(), tempStar.getX(), tempStar.getY(), this);
+		}
 		if(stop)
 		{
 			if(player1.life <= 0)
@@ -338,12 +376,6 @@ public class GamePanel extends JPanel implements KeyListener
 		step+=5;
 		if(step == 62000)
 			step = 1005;
-		 g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		 g.setColor(Color.WHITE);
-		g.drawString(Integer.toString(player1.life), 10, 30);
-		g.drawString(Integer.toString(player2.life), 700, 30);
-		g.drawString(Integer.toString(player2.inviCounter), 700, 50);
-		
 		for(int i = 1 ; i<=player1.life;i++)
 		{
 			g.drawImage(life1, 20+i*30 , 30, this);
@@ -352,21 +384,23 @@ public class GamePanel extends JPanel implements KeyListener
 		{
 			g.drawImage(life2, 730-(20+i*30) , 30, this);
 		}
+		g.setColor(Color.BLUE);
 		if(player1.invincible)
 		{
-			g.drawRect(30, 60, player1.inviCounter*2, 10);
+			g.fillRect(30, 60, player1.inviCounter*2, 10);
 			}
 		if(player2.invincible)
 		{
-				g.drawRect(500, 60, player2.inviCounter*2, 10);
+				g.fillRect(500, 60, player2.inviCounter*2, 10);
 		}
+		g.setColor(Color.YELLOW);
 		if(powerCheck1)
 		{
-			g.drawRect(30,90,powercounter1*2,10);
+			g.fillRect(30,90,powercounter1,10);
 		}
 		if(powerCheck2)
 		{
-			g.drawRect(500, 60, powercounter2*2,10);
+			g.fillRect(500, 60, powercounter2,10);
 		}
 	
 	}
@@ -412,7 +446,36 @@ public class GamePanel extends JPanel implements KeyListener
 	    }
 		
 	}
+	public void updateStar()
+	{
+		int rand = (int) (Math.random()*20); //% chance
+		if(rand>=15)
+		{
+			int randomStar =  (int) (Math.random()*3);
+			if(randomStar == 0)
+				tempStar = new Star(whiteStar);
+				//boulders.add(new Terrain(brownBlock));
+			else if(randomStar == 1)
+				tempStar = new Star(yellowStar);
 
+				//boulders.add(new Terrain(grayBlock));
+			else if(randomStar == 2)
+				tempStar = new Star(redStar);
+
+				//boulders.add(new Terrain(whiteBlock));
+			starslist.add(tempStar);
+			tempStar = null;
+			}
+		
+		for(int i = 0; i<boulders.size();i++)
+		{
+			tempTerrain = boulders.get(i);
+			if(tempTerrain.getY()>1010)
+			{
+				boulders.remove(i);
+			}
+		}
+	}
 		public void updateBoulder()
 		{
 			int rand = (int) (Math.random()*20); //% chance
@@ -445,8 +508,8 @@ public class GamePanel extends JPanel implements KeyListener
 		}
 		public void updatePower()
 		{
-			int randPower = (int) (Math.random()*50); //% chance
-			if(randPower>=49)
+			int randPower = (int) (Math.random()*100); //% chance
+			if(randPower>=99)
 			{
 				int randomBlock =  (int) (Math.random()*3);
 				if(randomBlock == 0)

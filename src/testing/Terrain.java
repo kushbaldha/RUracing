@@ -14,7 +14,7 @@ public class Terrain
 
 
 	public Terrain(BufferedImage image) {
-		x = (int) (Math.random()*500);
+		x = (int) (Math.random()*750);
 		y = (int) (Math.random()*-100);
 		this.image = image;
 		hitbox = new Rectangle(x,y,image.getWidth(),image.getHeight());

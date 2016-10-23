@@ -2,53 +2,23 @@ package testing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GameLoopTest extends JFrame 
 {
    private GamePanel gamePanel = new GamePanel();
-   boolean running;
-   boolean paused;
-   Boolean keyPressedSpace = false;
-   BufferedImage title;{
-   try{
-	      title = new BufferedImage(750,65000, BufferedImage.TYPE_INT_ARGB);
-	      title = ImageIO.read(getClass().getResource("/images/title.png"));
-
-	      System.out.println("Reading complete.");
-	    }catch(IOException e)
-   		{
-	     System.out.println("Error: "+e); 
-   		}}
-	
-   public void keyPressed(KeyEvent e)
-	{
-		int key = e.getKeyCode();
-		System.out.println("printing");
-		if (key == KeyEvent.VK_SPACE)
-		{
-	        keyPressedSpace = true;
-		}
-	}
-   
-	if (keyPressedSpace==true)
-	{
-		running = true;
-		paused = false;
-	}
-	private int fps = 60;
+ 
+   private boolean running = true;
+   private boolean paused = false;
+   private int fps = 60;
    private int frameCount = 0;
-   int count = 0;
-   
+   int count = 0;   
    
    
    public GameLoopTest()
@@ -56,7 +26,11 @@ public class GameLoopTest extends JFrame
       super();
       Container cp = getContentPane();
       cp.setLayout(new BorderLayout());
+      setPreferredSize(new Dimension(750,1000));
+      setMaximumSize(new Dimension(750,1000));
+      setMinimumSize(new Dimension(750,1000));
       setSize(750, 65000);
+      pack();
       cp.add(gamePanel, BorderLayout.CENTER);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
       gamePanel.addKeyListener(gamePanel);
@@ -81,9 +55,9 @@ public class GameLoopTest extends JFrame
             gameLoop();
          }
       };
-     
-  			loop.start();
+      loop.start();
    }
+
   	
   	 private void gameLoop()
   	   {
@@ -176,9 +150,4 @@ public class GameLoopTest extends JFrame
   	      frameCount++;
   	      
   	   }
-  	 public void keyTyped(KeyEvent arg0) {
- 		// TODO Auto-generated method stub
- 		
- 	}
- 	
    }
