@@ -177,12 +177,13 @@ public class GamePanel extends JPanel implements KeyListener
 			}
 		}
 	}
-	public void keyPressed(KeyEvent e)
+	public void keyTyped(KeyEvent e)
 	{
 		int key = e.getKeyCode();
 		System.out.println("printing");
 		if (key == KeyEvent.VK_LEFT) {
 	        keyPressedLeft = true;
+	        
 	    }
 
 	    if (key == KeyEvent.VK_RIGHT) {
@@ -191,6 +192,7 @@ public class GamePanel extends JPanel implements KeyListener
 
 	    if (key == KeyEvent.VK_UP) {
 	        keyPressedUp = true;
+	        
 	    }
 
 	    if (key == KeyEvent.VK_DOWN) {
@@ -245,15 +247,48 @@ public class GamePanel extends JPanel implements KeyListener
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void keyReleased(KeyEvent arg0) 
+	{
+		int key = e.getKeyCode();
+		System.out.println("printing");
+		if (key == KeyEvent.VK_LEFT) {
+	        keyPressedLeft = false;
+	        
+	    }
+
+	    if (key == KeyEvent.VK_RIGHT) {
+	        keyPressedRight = false;
+	    }
+
+	    if (key == KeyEvent.VK_UP) {
+	        keyPressedUp = false;
+	        
+	    }
+
+	    if (key == KeyEvent.VK_DOWN) {
+	        keyPressedDown = false;
+	    }
+	    
+	    
+	    if (key == KeyEvent.VK_A) {
+	    	keyPressedA = false;
+	    }
+
+	    if (key == KeyEvent.VK_D) {
+	        keyPressedD = false;
+	    }
+
+	    if (key == KeyEvent.VK_W) {
+	        keyPressedW = false;
+	    }
+
+	    if (key == KeyEvent.VK_S) {
+	        keyPressedS = false;
+	    }
 		
 	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
+	
 	}
 	
 	
