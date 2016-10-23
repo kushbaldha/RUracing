@@ -33,7 +33,7 @@ public class GamePanel extends JPanel
 		try{
 		      //f = new File("Background2.jpg"); //image file path
 		      backgroundImage = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      backgroundImage = ImageIO.read(GamePanel.class.getResourceAsStream("/images/Background.png"));
+		      backgroundImage = ImageIO.read(getClass().getResource("/images/Background.jpg"));
 
 		      System.out.println("Reading complete.");
 		    }catch(IOException e){
