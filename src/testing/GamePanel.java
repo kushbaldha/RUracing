@@ -224,6 +224,7 @@ public class GamePanel extends JPanel
 		}
 		
 		g.drawImage(player1.image,player1.x,player1.y,this);
+		g.drawImage(player2.image, player2.x, player2.y, this);
 		
 		step+=5;
 		if(step == 3000)
