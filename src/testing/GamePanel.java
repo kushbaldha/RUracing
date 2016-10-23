@@ -176,8 +176,42 @@ public class GamePanel extends JPanel implements KeyListener
 				power.remove(i);
 			}
 		}
+		if(keyPressedA)
+		{
+			player1.moveLeft();
+		}
+		if(keyPressedD)
+		{
+			player1.moveRight();
+		}
+		if(keyPressedW)
+		{
+			player1.moveUp();
+		}
+		if(keyPressedS)
+		{
+			player1.moveDown();
+		}
+
+
+		if(keyPressedLeft)
+		{
+			player2.moveLeft();
+		}
+		if(keyPressedRight)
+		{
+			player2.moveRight();
+		}
+		if(keyPressedUp)
+		{
+			player2.moveUp();
+		}
+		if(keyPressedDown)
+		{
+			player2.moveDown();
+		}
 	}
-	public void keyTyped(KeyEvent e)
+	public void keyPressed(KeyEvent e)
 	{
 		int key = e.getKeyCode();
 		System.out.println("printing");
@@ -246,7 +280,7 @@ public class GamePanel extends JPanel implements KeyListener
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) 
+	public void keyReleased(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
 		System.out.println("printing");
@@ -286,9 +320,15 @@ public class GamePanel extends JPanel implements KeyListener
 	    }
 		
 	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 		
 	
 	}
 	
 	
-}
+
