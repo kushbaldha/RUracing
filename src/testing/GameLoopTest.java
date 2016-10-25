@@ -12,7 +12,12 @@ import javax.swing.JPanel;
 
 public class GameLoopTest extends JFrame 
 {
-   private GamePanel gamePanel = new GamePanel();
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 448912238226888283L;
+
+private GamePanel gamePanel = new GamePanel();
  
    private boolean running = true;
    private boolean paused = false;

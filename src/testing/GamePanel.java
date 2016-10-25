@@ -18,6 +18,10 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements KeyListener
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7897690884317302383L;
 	Player player1;
 	Player player2;
 	BufferedImage backgroundImage = null;
@@ -140,21 +144,13 @@ public class GamePanel extends JPanel implements KeyListener
 		      System.out.println("Error: "+e);
 		    }
 		
-		try{
-		      brownBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
-		      brownBlock = ImageIO.read(getClass().getResource("/images/Brown_block.png"));
-
-		      System.out.println("Reading complete.");
-		    }catch(IOException e){
-		      System.out.println("Error: "+e);
-		    }
 		
 		
 		try{
 		      whiteBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
 		      whiteBlock = ImageIO.read(getClass().getResource("/images/White_Block.png"));
 
-		      System.out.println("Reading complete.");
+		      System.out.println("Reading complete white");
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
@@ -164,7 +160,7 @@ public class GamePanel extends JPanel implements KeyListener
 		      grayBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
 		      grayBlock = ImageIO.read(getClass().getResource("/images/Gray_Block.png"));
 
-		      System.out.println("Reading complete.");
+		      System.out.println("Reading complete gray");
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
@@ -173,11 +169,19 @@ public class GamePanel extends JPanel implements KeyListener
 		      drill = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
 		      drill = ImageIO.read(getClass().getResource("/images/DrillPower.png"));
 
-		      System.out.println("Reading complete.");
+		      System.out.println("Reading complete drill");
 		    }catch(IOException e){
 		      System.out.println("Error: "+e);
 		    }
 		
+		try{
+		      brownBlock = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
+		      brownBlock = ImageIO.read(getClass().getResource("/images/brown_Block.png"));
+
+		      System.out.println("Reading complete brown");
+		    }catch(IOException e){
+		      System.out.println("Error: "+e);
+		    } 
 		try{
 		      invert = new BufferedImage(500,5000, BufferedImage.TYPE_INT_ARGB);
 		      invert = ImageIO.read(getClass().getResource("/images/InvertPower.png"));
@@ -353,7 +357,7 @@ public class GamePanel extends JPanel implements KeyListener
 		for(int i = 0;i<starslist.size();i++)
 		{
 			tempStar = starslist.get(i);
-			tempStar.setY(tempStar.getY()+5);
+			tempStar.setY(tempStar.getY()+6);
 			g.drawImage(tempStar.getImage(), tempStar.getX(), tempStar.getY(), this);
 		}
 		if(stop)
